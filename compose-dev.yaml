@@ -1,0 +1,22 @@
+services:
+  server:
+    container_name: server
+    hostname: server
+    image: php:7.4-cli
+    working_dir: /var/www/html
+    ports:
+      - '8080:80'
+    volumes:
+      - ./server/app/:/var/www/html
+    command: 'php -S 0.0.0.0:80 -t /var/www/html'
+
+  client:
+    container_name: client
+    hostname: client
+    build:
+      context: client/image
+    ports:
+      - '8081:80'
+    volumes:
+      - ./client/app:/home/node/app
+    command: 'node index.js'
